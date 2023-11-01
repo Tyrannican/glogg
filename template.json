@@ -1,0 +1,27 @@
+{
+    "name": "Package Name",
+    "version": "Package Version",
+    "description": "Package Description",
+    "home": "Project Homepage",
+    "repository": "Project Source",
+    "binary": {
+        "sha256": "Checksum of the downloaded binary",
+        "download": "Download URL",
+        "actions": [
+            {
+                "action": ["args", "for", "action"]
+            }
+        ]
+    },
+    "source": {
+        "requires": ["requirements", "for", "building", "go", "here"],
+        "actions": [
+            {
+                "action": ["some", "build", "args"]
+            },
+            {
+                "action": ["some", "more", "build", "args"]
+            }
+        ]
+    }
+}
