@@ -34,3 +34,9 @@ func BinaryBuilder(wk *Workspace, manifest *Manifest) {
 		action.Exec()
 	}
 }
+
+func SourceBuilder(wk *Workspace, manifest *Manifest) {
+	src := manifest.Source
+	src.CheckRequirementsInstalled()
+	log.Println("All requirements are installed!")
+}

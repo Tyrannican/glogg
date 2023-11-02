@@ -20,5 +20,6 @@ func main() {
 	manifest := LoadTestManifest()
 	wkspace := CreateGloggRoot()
 	wkspace.Prep(manifest)
-	BinaryBuilder(wkspace, manifest)
+	// BinaryBuilder(wkspace, manifest)
+	SourceBuilder(wkspace, manifest)
 }

@@ -3,6 +3,8 @@ package main
 import (
 	"crypto/sha256"
 	"encoding/hex"
+	"log"
+	"os/exec"
 )
 
 type Manifest struct {
@@ -31,4 +33,22 @@ func (b *BinaryBuild) ChecksumValidation(input []byte) bool {
 	hexSum := hex.EncodeToString(cksum[:])
 
 	return hexSum == b.Sha256
+}
+
+func (s *SourceBuild) CheckRequirementsInstalled() {
+	for _, req := range s.Requires {
+		if !s.isRequirementInstalled(req) {
+			log.Fatalf("%s is required to be installed before building from source", req)
+		}
+	}
+}
+
+func (s *SourceBuild) isRequirementInstalled(req string) bool {
+	cmd := exec.Command("which", req)
+
+	if err := cmd.Run(); err != nil {
+		return false
+	}
+
+	return true
 }
