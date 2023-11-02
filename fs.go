@@ -19,9 +19,9 @@ func CreateGloggRoot() *Workspace {
 	packages := CreateDirectory(root, "packages")
 
 	return &Workspace{
-		RootDir: root,
-		Bin:        bin,
-		Packages:   packages,
+		RootDir:  root,
+		Bin:      bin,
+		Packages: packages,
 	}
 }
 
