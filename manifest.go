@@ -1,6 +1,8 @@
 package main
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"log"
 	"os"
 	"os/exec"
@@ -40,6 +42,13 @@ type Action struct {
 	Action []string `json:"action"`
 }
 
+func (b *BinaryBuild) ChecksumValidation(input []byte) bool {
+    cksum := sha256.Sum256(input)
+    hexSum := hex.EncodeToString(cksum[:])
+    
+    return hexSum == b.Sha256
+}
+
 func (a *Action) Prep(wk *Workspace) {
     action := a.Action
 
@@ -62,7 +71,6 @@ func (a *Action) Exec() {
         a.doSpecialAction(val, a.Action[1:])
     } else {
         cmd := exec.Command(cmdName, a.Action[1:]...)
-        cmd.Stdout = os.Stdout
         cmd.Stderr = os.Stderr
 
         if err := cmd.Run(); err != nil {

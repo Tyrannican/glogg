@@ -32,6 +32,10 @@ func BinaryBuilder(wk *Workspace, manifest *Manifest) {
 
     defer resp.Body.Close()
     body, err := io.ReadAll(resp.Body)
+    if !manifest.Binary.ChecksumValidation(body) {
+        log.Fatalf("!!! ERROR - Checksums do not match !!!\n")
+    }
+
     os.WriteFile(fmt.Sprintf("%s/%s", workingDir, downloadFile), body, 0755)
     log.Println("Saved file!")
 
