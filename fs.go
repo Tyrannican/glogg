@@ -19,7 +19,7 @@ func CreateGloggRoot() *Workspace {
 	packages := CreateDirectory(root, "packages")
 
 	return &Workspace{
-		WorkingDir: root,
+		RootDir: root,
 		Bin:        bin,
 		Packages:   packages,
 	}
@@ -27,7 +27,10 @@ func CreateGloggRoot() *Workspace {
 
 func CreateDirectory(root, target string) string {
 	target = filepath.Join(root, target)
-	os.MkdirAll(target, 0644)
+	err := os.MkdirAll(target, 0755)
+	if err != nil {
+		log.Fatalf("Error creating directory: %v\n", err)
+	}
 
 	return target
 }
